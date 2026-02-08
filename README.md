@@ -1,0 +1,41 @@
+# Distributed SAP Cloud Integration Scenarios
+Artifacts and SAP Community blog reference supporting failover and high availability examples for SAP Cloud Integration (formerly SCP Cloud Platform Integration) using Azure PaaS Services
+
+## 1. Failover with routing-based solution using Azure FrontDoor and API Management and cross-azure-region deployments
+Find more details on the SAP community [blog](https://blogs.sap.com/2020/11/23/how-to-crash-your-iflows-and-watch-them-failover-beautifully/) 
+
+The zip file "DRDemo.zip" contains the iFlows used in the blog.
+
+This is useful to avoid the regular SAP CPI maintenance window for instance.
+
+## 2. Failover with DNS-based solution using Azure Traffic Manager
+Find more details on the SAP community [blog](https://blogs.sap.com/2021/01/18/second-round-of-crashing-iflows-in-cpi-and-failing-over-with-azure-even-simpler) 
+
+The zip file "FailoverOnboarding.zip" contains the iFlows used in the blog.
+
+See also [SAP's Discovery Center Mission](https://github.com/SAP-samples/btp-cloud-integration-intelligent-routing) based upon the original blog series.
+
+## 3. High availability concepts within same BTP and Azure region
+Find more details on the SAP community [blog](https://blogs.sap.com/2021/09/23/black-friday-will-take-your-cpi-instance-offline-unless/)
+
+SAP Docs for CPI API runtime setup can be found [here](https://help.sap.com/viewer/368c481cd6954bdfa5d0435479fd4eaf/Cloud/en-US/20e26a837a8449c4b8b934b07f71cb76.html). Required APIs to interact with CPI API runtime are described on the [SAP API Business Hub](https://api.sap.com/package/CloudIntegrationAPI?section=Artifacts).
+
+SecretSynchLogicApp.json contains the LogicApp template that integrates with Azure Event Grid. Find more details on the required config and the Azure portal driven setup flow from your KeyVault on [Azure Docs](https://docs.microsoft.com/en-us/azure/key-vault/general/event-grid-logicapps). In order to use the template as is you need to fill the placeholders marked with "<<<>>>" and pre-provision Event Grid and KeyVault.
+
+The LogicApp relies on a "secret" naming convention to pull the credentials for the CPI API call. <cpi domain>-usr or -pwd. That eases some of the configuration required and decouples the setting on the LogicApp.
+
+In this implementation, two CPI instances are utilized. The first under domain dr-primary and the second under cpi-dr-secondary.
+
+![Secret list](/keyvault-secret-list.png)
+
+The zip file "ShowSharedSecret.zip" contains an iFlow that reads the CPI credential "CPI-AUTH-SHARED" during runtime. This is used to verify the approach and correct setup.
+
+Reach out through the GitHub Issues or the comments section on the referenced SAP Community blogs.
+
+Regards,
+Manoj Gali
+
+## Maintainer
+Manoj Gali is a Senior SAP CPI Consultant with over 5 years of experience in SAP integration technologies. He specializes in designing, developing, and optimizing scalable integration solutions, ensuring secure and high-performance data exchange across SAP and non-SAP systems. This repository is maintained to provide continued support for the failover and high availability patterns originally shared by Martin and the SAP Community.
+
+Contact: manoj.gali695@gmail.com
